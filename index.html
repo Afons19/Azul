@@ -16,16 +16,123 @@
     </header> -->
     <aside id="sidebar">
         <div id="sidebar-header">
-            <h4>Menu</h4>
+            <h2>Menu</h2>
         </div>
         <ul id="sidebar-menu">
-            <li><a href="paginas/castrFuncio.html"><i class="fas fa-users"></i><i>Cadastro de Funcionários</i></a></li>
-            <li><a href="#"><i class="fas fa-truck"></i><i>Cadastro de Fornecedores</i></a></li>
-            <li><a href="#"><i class="fas fa-box-open"></i><i>Cadastro de Produtos</i></a></li>
-            <li><a href="#"><i class="fas fa-cash-register"></i><i>Registrar Vendas</i></a></li>
-            <li><a href="#"><i class="fas fa-tags"></i><i>Categorias</i></a></li>
-            <li><a href="#" id="term-sess"><i class="fa-sign-out-alt"></i><i>Terminar Sessão</i></a></li>
+            <li>
+                <a href="paginas/castrFuncio.html"><i class="fas fa-users"></i>Funcionários</a>
+            </li>
+            <li><a href="#"><i class="fas fa-truck"></i> Fornecedores</a></li>
+            <li><a href="#"><i class="fas fa-box-open"></i> Produtos</a></li>
+            <li><a href="#"><i class="fas fa-cash-register"></i> Registrar Vendas</a></li>
+            <li><a href="#"><i class="fas fa-tags"></i> Categorias</a></li>
+            <hr>
+            <li><a href="#" id="term-sess"><i class="fa-sign-out-alt"></i> Terminar Sessão</a></li>
         </ul>
     </aside>
+    <div id="main-content">
+        <header>
+            <h1>Dashboard</h1>
+        </header>
+        <main>
+            <article id="container-1">
+                <div class="cart1">
+                    <h3>Total de Vendas</h3>
+                    <div id="total-vendas"></div>
+                    <p>Últimos 30 dias</p>
+                </div>
+                <div class="cart1">
+                    <h3>Total de Despesas</h3>
+                    <div id="total-despesas"></div>
+                    <p>Últimos 30 dias</p>
+                </div>
+                <div class="cart1">
+                    <h3>Lucro Líquido</h3>
+                    <div id="lucro-liquido"></div>
+                    <p>Últimos 30 dias</p>
+                </div>
+                <div class="cart1">
+                    <h3>Produtos</h3>
+                    <div id="total-produtos"></div>
+                    <p>Últimos 30 dias</p>
+                </div>
+            </article>
+            <article id="container-2">
+                <div class="graficos" id="gf1">
+                    <h3>Vendas por Dia(últimos 7 dias)</h3>
+                </div>
+                <div class="graficos" id="gf2">
+                    <h3>Vendas por Categoria</h3>
+                </div>
+            </article>
+            <article class="tabelas">
+                <h3>Fornecedores</h3>
+                <table id="tabelaFornecedores">
+                    <thead>
+                        <tr>
+                            <th>Fornecedor</th>
+                            <th>Produtos Fornecidos</th>
+                            <th>Data</th>
+                            <th>Valor Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Josh</td>
+                            <td>14</td>
+                            <td>07/08/2023</td>
+                            <td>340 000,00kz</td>
+                        </tr>
+                        <tr>
+                            <td>Josh</td>
+                            <td>14</td>
+                            <td>07/08/2023</td>
+                            <td>340 000,00kz</td>
+                        </tr>
+                        <tr>
+                            <td>Josh</td>
+                            <td>14</td>
+                            <td>07/08/2023</td>
+                            <td>340 000,00kz</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </article>
+            <article class="tabelas">
+                <h3>Histórico de Vendas Recentes</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fornecedor</th>
+                            <th>Produtos Fornecidos</th>
+                            <th>Data</th>
+                            <th>Valor Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Josh</td>
+                            <td>14</td>
+                            <td>07/08/2023</td>
+                            <td>340 000,00kz</td>
+                        </tr>
+                        <tr>
+                            <td>Josh</td>
+                            <td>14</td>
+                            <td>07/08/2023</td>
+                            <td>340 000,00kz</td>
+                        </tr>
+                        <tr>
+                            <td>Josh</td>
+                            <td>14</td>
+                            <td>07/08/2023</td>
+                            <td>340 000,00kz</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </article>
+        </main>
+    </div>
 </body>
 </html>
