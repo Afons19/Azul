@@ -93,7 +93,7 @@ body {
 }
 
 hr {
-    margin-top: 370px;   
+    margin-top: 330px;   
     color: var(--cor002);
 }
 
@@ -107,7 +107,7 @@ header {
     background-color: var(--cor001);
     padding: 40px;
     margin-bottom: 20px;
-    border-radius: 5px;
+    border-radius: 2px;
     color: white;
 }
 
@@ -165,7 +165,8 @@ th {
 th, td {
     padding: 10px;
     text-align: left;
-    border: 1px solid rgba(0, 0, 0, 0.096);
+    /* border:; */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.096);
 
 }
 
@@ -173,8 +174,12 @@ th, td {
     TODO:
     - Terminar a sidebar [~]
     - Adicionar o conteúdo principal [X]
-    - Criar outras páginas []
+    - Criar a página de cadastro de funcionários [X]
+    - Criar a página de cadastro de fornecedores []
+    - Criar a página de cadastro de produtos []
+    - Criar a página de registro de vendas []
+    - Criar a página de Categorias []
     - Criar o/s aquivo/s JS
-    - Criar uma branch
+    - Criar uma branch [X]
 
 */
