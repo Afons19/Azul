@@ -17,27 +17,37 @@
                 </ul>
             </nav>
         </menu>
-    </header>
-
-    <main>
-        <article>
+    </header>    <main>
+        <article class="form-container">
             <h2>Nova Venda</h2>
             <form id="formVenda">
-                <label for="cliente">Nome do Cliente:</label>
-                <input type="text" id="cliente" name="cliente" required>
+                <!-- <div class="form-group">
+                    <label for="cliente">Nome do Cliente</label>
+                    <input type="text" id="cliente" name="cliente" placeholder="Digite o nome do cliente" required>
+                </div> -->
                     
-                <label for="produto">Produto:</label>
-                <input type="text" id="produto" name="produto" required>
+                <div class="form-group">
+                    <label for="produto">Produto</label>
+                    <input type="text" id="produto" name="produto" placeholder="Digite o nome do produto" required>
+                </div>
                     
-                <label for="quantidade">Quantidade:</label>
-                <input type="number" id="quantidade" name="quantidade" min="1" required>
+                <div class="form-row">
+                    <div class="form-group gp">
+                        <label for="quantidade">Quantidade</label>
+                        <input type="number" id="quantidade" name="quantidade" min="1" placeholder="0" required>
+                    </div>
                     
-                <label for="valor">Valor Unitário:</label>
-                <input type="number" id="valor" name="valor" step="0.01" min="0.01" required>
-                    
-                <label for="data">Data da Venda:</label>
-                <input type="date" id="data" required>
-                <div>
+                    <div class="form-group gp" id="vu" >
+                        <label for="valor">Valor Unitário</label>
+                        <input type="number" id="valor" name="valor" step="0.01" min="0.01" placeholder="0,00" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="data">Data da Venda</label>
+                        <input type="date" id="data" name="data" required>
+                    <div>
                     <label for="formaPagamento">Forma de Pagamento:</label>
                     <select id="formaPagamento" name="formaPagamento" required>
                         <option value="opc">Selecione uma opção</option>
@@ -57,10 +67,11 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Data</th>
-                        <th>Cliente</th>
-                        <th>Produto</th>
+                        <!-- <th>Cliente</th> -->
+                        <th>Nome do Produto</th>
+                        <th>Categoria</th>
                         <th>Quantidade</th>
+                        <th>Data</th>
                         <th>Valor Unit.</th>
                         <th>Total</th>
                         <th>Pagamento</th>
@@ -68,6 +79,62 @@
                 </thead>
                 <tbody id="tabelaVendas">
                     <!-- As vendas serão inseridas aqui dinamicamente -->
+                     <tr>
+                        <td>20-02-2025</td>
+                        <td>Caixa</td>
+                        <td>5</td>
+                        <td>1000</td>
+                        <td>5000</td>
+                        <td>Express</td>
+                     </tr>
+                     <tr>
+                        <td>20-02-2025</td>
+                        <td>Caixa</td>
+                        <td>5</td>
+                        <td>1000</td>
+                        <td>5000</td>
+                        <td>Express</td>
+                     </tr>
+                     <tr>
+                        <td>20-02-2025</td>
+                        <td>Caixa</td>
+                        <td>5</td>
+                        <td>1000</td>
+                        <td>5000</td>
+                        <td>Express</td>
+                     </tr>
+                     <tr>
+                        <td>20-02-2025</td>
+                        <td>Caixa</td>
+                        <td>5</td>
+                        <td>1000</td>
+                        <td>5000</td>
+                        <td>Express</td>
+                     </tr>
+                     <tr>
+                        <td>20-02-2025</td>
+                        <td>Caixa</td>
+                        <td>5</td>
+                        <td>1000</td>
+                        <td>5000</td>
+                        <td>Express</td>
+                     </tr>
+                     <tr>
+                        <td>20-02-2025</td>
+                        <td>Caixa</td>
+                        <td>5</td>
+                        <td>1000</td>
+                        <td>5000</td>
+                        <td>Express</td>
+                     </tr>
+                     <tr>
+                        <td>20-02-2025</td>
+                        <td>Caixa</td>
+                        <td>5</td>
+                        <td>1000</td>
+                        <td>5000</td>
+                        <td>Express</td>
+                     </tr>
                 </tbody>
             </table>
         </article>

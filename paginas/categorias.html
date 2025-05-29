@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylePaginas.css">    <title>Categorias de Produtos</title>
+</head>
+<body>
+    <header>
+        <h1>Categorias de Produtos</h1>
+        <menu>
+            <nav aria-label="breadcrumb" id="breadcrumb">
+                <ul>
+                    <li><a href="../index.html">Dashboard </a></li>
+                    <li><a href="categorias.html">Categorias de Produtos</a></li>
+                </ul>
+            </nav>
+        </menu>
+    </header>
+    <main>
+        <article class="form-container">
+            <h2>Nova Categoria</h2>
+            <form id="formCategoria">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome">Nome da Categoria</label>
+                        <input type="text" id="nome" name="nome" placeholder="Digite o nome da categoria" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="codigo">Código</label>
+                        <input type="text" id="codigo" name="codigo" placeholder="Digite o código da categoria" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" name="descricao" rows="3" placeholder="Digite uma descrição para a categoria"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Adicionar Categoria</button>
+                    <button type="reset" class="btn-secondary">Limpar</button>
+                </div>
+            </form>
+        </article>
+
+        <article class="table-container">
+            <div class="table-header">
+                <h2>Categorias Cadastradas</h2>
+                <div class="search-container">
+                    <input type="search" id="pesquisar" placeholder="Pesquisar categorias..." class="search-input">
+                </div>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Produtos</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CAT001</td>
+                        <td>Eletrônicos</td>
+                        <td>Produtos eletrônicos em geral</td>
+                        <td>15</td>
+                        <td class="actions">
+                            <button class="btn-icon" title="Editar"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon" title="Excluir"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>CAT002</td>
+                        <td>Informática</td>
+                        <td>Equipamentos de informática</td>
+                        <td>23</td>
+                        <td class="actions">
+                            <button class="btn-icon" title="Editar"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon" title="Excluir"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </article>
+    </main>
+
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</body>
+</html>
