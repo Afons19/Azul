@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylePaginas.css">
+    <title>Cadastro de Produtos</title>
+</head>
+<body>
+    <header>
+        <h1>Cadastro de Produtos</h1>
+        <menu>
+            <nav aria-label="breadcrumb" id="breadcrumb">
+                <ul>
+                    <li><a href="../index.html">Dashboard </a></li>
+                    <li><a href="produtos.html">Cadastro de Produtos</a></li>
+                </ul>
+            </nav>
+        </menu>
+    </header>
+    <main>
+        <article>
+            <form id="cadastro-produto" autocomplete="off">
+                <label for="pnome">Nome do Produto:</label>
+                <input type="text" id="pnome" required>
+                <label for="categoria">Categoria:</label>
+                <input type="text" id="pcategoria" required>
+                <label for="pfonecedore">Fornecedor:</label>
+                <input type="text" id="pfornecedor" required>
+                <label for="ppreco">Preço:</label>
+                <input type="number" id="ppreco" required>
+                <label for="pdata-entrega">Data de Entrega:</label>
+                <input type="date" id="pdata_entrega" required>
+                <label for="pquantidade">Quantidade:</label>
+                <input type="number" id="pquantidade" required>
+                <!-- <label for="imagem">Imagem do Produto:</label>
+                <input type="file" id="imagem" accept="image/*" required> -->
+                <button type="submit">Cadastrar</button>
+            </form>
+        </article>
+        <h2>Produtos Cadastrados</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Categoria</th>
+                    <th>Fornecedor</th>
+                    <th>Preço</th>
+                    <th>Data de Entrega</th>
+                    <th>Quantidade</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+        
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylePaginas.css">
+    <title>Registrar Vendas</title>
+</head>
+<body>
+    <header>
+        <h1>Registrar Vendas</h1>
+        <menu>
+            <nav aria-label="breadcrumb" id="breadcrumb">
+                <ul>
+                    <li><a href="../index.html">Dashboard </a></li>
+                    <li><a href="registrar-vendas.html">Registrar Vendas</a></li>
+                </ul>
+            </nav>
+        </menu>
+    </header>
+
+    <main>
+        <article>
+            <h2>Nova Venda</h2>
+            <form id="formVenda">
+                <label for="cliente">Nome do Cliente:</label>
+                <input type="text" id="cliente" name="cliente" required>
+                    
+                <label for="produto">Produto:</label>
+                <input type="text" id="produto" name="produto" required>
+                    
+                <label for="quantidade">Quantidade:</label>
+                <input type="number" id="quantidade" name="quantidade" min="1" required>
+                    
+                <label for="valor">Valor Unitário:</label>
+                <input type="number" id="valor" name="valor" step="0.01" min="0.01" required>
+                    
+                <label for="data">Data da Venda:</label>
+                <input type="date" id="data" required>
+                <div>
+                    <label for="formaPagamento">Forma de Pagamento:</label>
+                    <select id="formaPagamento" name="formaPagamento" required>
+                        <option value="opc">Selecione uma opção</option>
+                        <option value="dinheiro">Dinheiro</option>
+                        <option value="cartao">Cartão de Débito</option>>
+                        <option value="express">Express</option>
+                        <option value="qrcode">Código QR</option>
+                    </select>
+                </div>
+
+                <button type="submit">Registrar Venda</button>
+            </form>
+        </article>
+
+        <article>
+            <h2>Últimas Vendas</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Cliente</th>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                        <th>Valor Unit.</th>
+                        <th>Total</th>
+                        <th>Pagamento</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaVendas">
+                    <!-- As vendas serão inseridas aqui dinamicamente -->
+                </tbody>
+            </table>
+        </article>
+    </main>
+</body>
+</html>

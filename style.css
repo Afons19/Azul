@@ -25,9 +25,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-  /* justify-content: ; */
   margin: 0;
-  /* margin-left: 198px; */
   padding: 0;
 }
 
@@ -53,7 +51,6 @@ body {
     background-color: var(--cor001);
     color: white;
     position: fixed;
-    /* z-index: 1; */
 }
 
 #sidebar-header {
@@ -100,7 +97,6 @@ hr {
 #main-content {
     margin-left: 250px;
     padding: 20px;
-    /* width: calc(100% - 220px); */
 } 
 
 header {
@@ -165,7 +161,6 @@ th {
 th, td {
     padding: 10px;
     text-align: left;
-    /* border:; */
     border-bottom: 1px solid rgba(0, 0, 0, 0.096);
 
 }
@@ -175,9 +170,10 @@ th, td {
     - Terminar a sidebar [~]
     - Adicionar o conteúdo principal [X]
     - Criar a página de cadastro de funcionários [X]
-    - Criar a página de cadastro de fornecedores []
-    - Criar a página de cadastro de produtos []
-    - Criar a página de registro de vendas []
+    - Criar a página de cadastro de fornecedores [X]
+    - Criar a página de cadastro de produtos [X]
+    - Criar a página de registro de vendas [X]
+    - Corrigir o erro em stylesPaginas e registrar-vendas []
     - Criar a página de Categorias []
     - Criar o/s aquivo/s JS
     - Criar uma branch [X]

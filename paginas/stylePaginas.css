@@ -102,3 +102,37 @@ th, td {
     border-bottom: 1px solid rgba(0, 0, 0, 0.096);
 
 }
+
+select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h2 {
+    color: var(--cor001);
+    margin-bottom: 20px;
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+input, select {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Estilo para tabela responsiva */
+@media screen and (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+}
