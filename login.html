@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        :root {
+            --cor001: rgb(5, 5, 100);
+            --cor002: #f0f0f0;
+            --cor003: rgb(16, 16, 145);
+        }
+    
+        * {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+        }
+    
+        html,
+        body {
+            background-color: var(--cor002);
+            height: 100vh;
+            width: 100vw;
+        }
+    
+        main {
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+        }
+    
+        #login {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            overflow: hidden;
+            background-color: white;
+            border-radius: 3px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.450);
+    
+            transform: translate(-50%, -50%);
+            transition: width 3s, height .3s;
+            transition-timing-function: ease;
+        }
+            
+        section#login {
+            width: 800px;
+            height: 350px;
+        }
+    
+    
+        #formulario {
+            display: block;
+            padding: 10px;
+    
+        }
+            section#login>div#imagem {
+                color: white;
+                float: left;
+                width: 50%;
+                height: 100%;
+                background-color: var(--cor001);
+            }
+
+            section#login>div#image>h1 {
+                margin-top: 6500px;
+            }
+    
+            #formulario {
+                float: right;
+                width: 50%;
+                margin-top: 60px;
+    
+            }
+    
+            div>h1 {
+                font-size: 2em;
+            }
+    
+            div>p {
+                font-size: 1em;
+            }
+    
+            #formulario>p {
+                font-size: 1em;
+                margin: 20px 0px;
+            }
+
+        input:focus {
+            outline: none;
+            border-color: var(--cor001);
+            box-shadow: 0 0 0 3px rgba(5, 5, 100, 0.1);
+        }
+    
+        div>h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    
+        div>p {
+            font-size: 0.8em;
+        }
+    
+        div.campo {
+            background-color: var(--cor002);
+            border-color: var(--cor001);
+            display: block;
+            width: 100%;
+            height: 40px;
+            border-radius: 3px;
+            margin: 5px 0px;
+        }
+    
+        div.campo>label {
+            display: none;
+        }
+    
+        div.campo>input {
+            border-color: var(--cor001);
+            font-size: 1em;
+            width: 100%;
+            height: 100%;
+            /* border: 0px; */
+            border-radius: 8px;
+            padding: 4px;
+            /* transform: translateY(-12px); */
+            border: 1px solid black;
+        }
+    
+        div.campo>input:focus-within {
+            background-color: white;
+        }
+    
+        input[type=submit] {
+            display: block;
+            font-size: 1em;
+            width: 100%;
+            height: 40px;
+            background-color: var(--cor001);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+    
+        input[type=submit]:hover {
+            background-color: var(--cor003);
+            transition: .5s;
+        }
+    
+        form>a.botao {
+            display: block;
+            text-align: center;
+            font-size: 1em;
+            width: 100%;
+            height: 40px;
+            padding-top: 7px;
+            margin-top: 5px;
+            background-color: #ffff;
+            color: var(--cor001);
+            transition: .9s;
+            border: 1px solid var(--cor001);
+            border-radius: 5px;
+            text-decoration: none;
+        }
+    
+        form>a.botao:hover {
+            background-color: var(--cor001);
+            color: var(--cor002);
+        }
+    
+        form>a.botao>span {
+            font-size: 0.8em;
+        }
+    
+    
+        /* @media screen and (min-width: 992px) {
+            body {
+                background-image: linear-gradient(to right, #f1f1f1, var(--cor001));
+            }
+    
+            /* section#login {
+                width: 800px;
+                height: 350px;
+            } */
+    
+            /* section#login>div#imagem {
+                color: white;
+                float: left;
+                width: 50%;
+                height: 100%;
+                background-color: var(--cor001);
+            }
+
+            section#login>div#image>h1 {
+                margin-top: 6500px;
+            }
+    
+            #formulario {
+                float: right;
+                width: 50%;
+                margin-top: 60px;
+    
+            }
+    
+            div>h1 {
+                font-size: 2em;
+            }
+    
+            div>p {
+                font-size: 1em;
+            }
+    
+            #formulario>p {
+                font-size: 1em;
+                margin: 20px 0px;
+            } */
+        /* } */
+    </style>
+</head>
+<body>
+     <main>
+        <section id="login">
+            <div id="imagem" style="padding: 20px;">
+                <h1 style="margin-top: 70px;">Login</h1>
+                <p>
+                    Seja bem-vinda(o) novamente. <br> Faça login para acessar sua conta e poder fazer as confiurações no seu ambiente.
+                </p>
+            </div>
+            <div id="formulario">
+                <form action="#" method="post" autocomplete="on">
+                    <div class="campo">
+                        <input type="email" name="login" id="ilogin" placeholder="exemplo@gmail.com" autocomplete="email" maxlength="30" required>
+                        <label for="ilogin">Login</label>
+                    </div>
+                    <div class="campo">
+                        <input type="password" name="senha" id="isenha" autocomplete="current-password" minlength="8" maxlength="20" placeholder="Senha" required>
+                        <label for="isenha" style="font-size: .9em;">Senha</label>
+                    </div>
+                    <input type="submit" value="Entrar">
+                    <a href="esqueci.html" class="botao">
+                        Esqueci a senha <span class="material-icons">mail</span>
+                    </a>
+                </form>
+            </div>
+        </section>
+    </main>  
+</body>
+</html>
