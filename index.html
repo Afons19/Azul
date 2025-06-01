@@ -6,17 +6,20 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Azul | Dashboard</title>
 </head>
 <body>
     <aside id="sidebar">
         <div id="sidebar-header">
-            <h1>Menu</h1>
+            <h1 id="dashUtilizador" style="font-size: 15pt;">Adm | Vanessa Morais</h1>
         </div>
         <ul id="sidebar-menu">
-            <li>
+            <h1 style="margin-left: 10px;">Menu</h1>
+
+            <!-- <li>
                 <a href="paginas/funcionarios.html"><i class="fas fa-users"></i>Funcionários</a>
-            </li>
+            </li> -->
             <li>
                 <a href="paginas/fornecedores.html" target="_self"><i class="fas fa-truck"></i> Fornecedores</a>
             </li>
@@ -35,43 +38,45 @@
     </aside>
     <div id="main-content">
         <header>
-            <h1 id="dashUtilizador">Dashboard | Vanessa Morais</h1>
+            <h1>Dashboard</h1>
         </header>
         <main>
             <article id="container-1">
                 <div class="cart1">
-                    <h3>Total de Vendas</h3>
-                    <div id="total_vendas"></div>
+                    <h2>Total de Vendas</h2>
+                    <div id="total_vendas">0</div>
                     <p>Últimos 30 dias</p>
                 </div>
                 <div class="cart1">
                     <h3 style="color: red;">Total de Despesas</h3>
-                    <div id="total_despesas"></div>
+                    <div id="total_despesas">0</div>
                     <p>Últimos 30 dias</p>
                 </div>
                 <div class="cart1">
-                    <h3 style="color: rgb(50, 224, 50);">Lucro Líquido</h3>
-                    <div id="lucro_liquido"></div>
+                    <h2 style="color: rgb(50, 224, 50);">Lucro Líquido</h2>
+                    <div id="lucro_liquido">0</div>
                     <p>Últimos 30 dias</p>
                 </div>
                 <div class="cart1">
-                    <h3>Produtos</h3>
-                    <div id="total_produtos"></div>
+                    <h2>Produtos</h2>
+                    <div id="total_produtos">0</div>
                     <p>Últimos 30 dias</p>
                 </div>
             </article>
             <article id="container-2">
                 <div class="graficos" id="gf1">
-                    <h3>Vendas por Dia(últimos 7 dias)</h3>
+                    <h2>Vendas por Dia(últimos 7 dias)</h2>
+                    <canvas id="vendas_diarias_grafico"></canvas>
                 </div>
                 <div class="graficos" id="gf2">
-                    <h3>Vendas por Categoria</h3>
+                    <h2>Vendas por Categoria</h2>
+                    <canvas id="vendas_categoria_grafico"></canvas>
                 </div>
             </article>
             <article class="tabelas">
                 <h2>Atividades Recentes</h2>
-                <ul id="atividade_recentes">
-
+                <ul id="atividade_recentes" id="atividade_recente_ui">
+                    <li>A carregar atividades...</li>
                 </ul>
             </article>
             <article class="tabelas">
@@ -88,26 +93,8 @@
                             <th>Valor Total</th>
                         </tr>
                     </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </article>
-            <article class="tabelas">
-                <h2>Funcionários</h2>
-                <table id="tabelaFuncionarios">
-                    <thead>
-                        <tr>
-                            <th>Nome Completo</th>
-                            <th>BI</th>
-                            <th>Data de Nascimento</th>
-                            <th>Número de Telefone</th>
-                            <th>Endereço</th>
-                            <th>E-mail</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
+                    <tbody id="tabela_vendas">
+                        <tr><td colspan="7">A carregar vendas...</td></tr>
                     </tbody>
                 </table>
             </article>
@@ -125,12 +112,13 @@
                             <th>ID</th>
                         </tr>
                     </thead>
-                    <tbody>
-
+                    <tbody id="tabela_fornecedores">
+                        <tr><td colspan="7">A carregar fornecedores...</td></tr>
                     </tbody>
                 </table>
             </article>
         </main>
-    </div>
+    </div>    
+    <script src="app.js"></script>
 </body>
 </html>

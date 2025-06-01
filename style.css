@@ -41,7 +41,7 @@ body { background-color: var(--cor003); }
 }
 
 #sidebar {
-    width: 250px;
+    width: 260px;
     height: 100vh;
     padding-top: 20px;
     background-color: var(--cor001);
@@ -90,6 +90,12 @@ header {
     color: white;
 }
 
+.graficos canvas {
+    max-width: 100%;
+    height: auto;
+    max-height: 350px;
+}
+
 #container-1 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -126,6 +132,10 @@ header {
     border-radius: 5px;
     margin-bottom: 20px;
 
+}
+
+ul > li {
+    margin-left: 25px;
 }
 
 table {
@@ -165,9 +175,12 @@ tr:hover { background-color: #f2f2f2; }
     - Criar a página de registro de vendas [X]
     - Corrigir o erro em stylesPaginas e registrar-vendas [X]
     - Criar a página de Categorias [X]
-    - Melhorar o design de categorias []
-    - Criar o/s aquivo/s JS []
-    - Organizar o fluxo de relações das páginas []
+    - Melhorar o design de categorias [X]
+    - Criar o/s aquivo/s JS [X]
     - Criar uma branch [X]
+    - Organizar o fluxo de relações das páginas []
+    - Conectar com o banco de dados []
+    - Conectar com as outras páginas []
+    - Criar o script de autentificação []
 
 */

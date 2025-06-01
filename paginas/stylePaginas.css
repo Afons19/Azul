@@ -63,6 +63,15 @@ article {
 
 }
 
+.form-container > h2 {
+    font-size: 60pt;
+}
+
+.form-container > h2 > div {
+    text-indent: 9%;
+    text-align: center;
+}
+
 form {
     padding: 10px;
 }
