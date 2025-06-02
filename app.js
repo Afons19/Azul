@@ -426,20 +426,42 @@ function gerarId() {
     return 'FUNC' + Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
 }
 
+// Função para fazer requisições HTTP
+async function fetchAPI(url, options = {}) {
+    try {
+        const response = await fetch(url, {
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.erro || 'Erro na requisição');
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Erro na API:', error);
+        alert(error.message);
+        throw error;
+    }
+}
+
 // Função para cadastrar novo funcionário
-function cadastrarFuncionario(event) {
+async function cadastrarFuncionario(event) {
     event.preventDefault();
 
     const novoFuncionario = {
-        id: gerarId(),
         nome: document.getElementById('funcionario-nome').value,
         bi: document.getElementById('funcionario-bi').value,
         foto: document.getElementById('funcionario-foto').files[0]?.name || 'sem-foto.jpg',
-        dataNascimento: document.getElementById('funcionario-data').value,
+        data_nascimento: document.getElementById('funcionario-data').value,
         telefone: document.getElementById('funcionario-telefone').value,
         endereco: document.getElementById('funcionario-endereco').value,
-        email: document.getElementById('funcionario-email').value,
-        dataCadastro: new Date().toISOString()
+        email: document.getElementById('funcionario-email').value
     };
 
     // Validações básicas
@@ -448,83 +470,14 @@ function cadastrarFuncionario(event) {
         return;
     }
 
-    // Adiciona o novo funcionário ao array
-    funcionarios.push(novoFuncionario);
+    try {
+        // Chama a API PHP para cadastrar
+        const resultado = await apiCadastrarFuncionario(novoFuncionario);
 
-    // Atualiza a tabela
-    atualizarTabelaFuncionarios();
-
-    // Adiciona uma atividade recente
-    const atividade = {
-        tipo: 'Cadastro',
-        descricao: `Novo funcionário cadastrado: ${novoFuncionario.nome}`,
-        data: new Date()
-    };
-    dadosFinanceiros.atividadesRecentes.unshift(atividade);
-    if (dadosFinanceiros.atividadesRecentes.length > 10) {
-        dadosFinanceiros.atividadesRecentes.pop();
-    }
-    atualizarAtividadesRecentes(dadosFinanceiros.atividadesRecentes);
-
-    // Limpa o formulário
-    event.target.reset();
-    alert('Funcionário cadastrado com sucesso!');
-}
-
-// Função para atualizar a tabela de funcionários
-function atualizarTabelaFuncionarios() {
-    const tbody = document.querySelector('#tabela_funcionarios');
-    if (!tbody) return;
-
-    if (funcionarios.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7">Nenhum funcionário cadastrado</td></tr>';
-        return;
-    }
-
-    tbody.innerHTML = funcionarios.map(func => `
-        <tr>
-            <td>${func.nome}</td>
-            <td>${func.bi}</td>
-            <td>${formatarData(func.dataNascimento)}</td>
-            <td>${func.telefone}</td>
-            <td>${func.endereco}</td>
-            <td>${func.email}</td>
-            <td class="actions">
-                <button class="btn-icon" onclick="editarFuncionario('${func.id}')" title="Editar">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="btn-icon" onclick="excluirFuncionario('${func.id}')" title="Excluir">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-        </tr>
-    `).join('');
-}
-
-// Função para editar funcionário
-function editarFuncionario(id) {
-    const funcionario = funcionarios.find(f => f.id === id);
-    if (!funcionario) return;
-
-    // Aqui você pode implementar a lógica de edição
-    // Por exemplo, abrir um modal ou redirecionar para uma página de edição
-    console.log('Editar funcionário:', funcionario);
-}
-
-// Função para excluir funcionário
-function excluirFuncionario(id) {
-    if (!confirm('Tem certeza que deseja excluir este funcionário?')) return;
-
-    const index = funcionarios.findIndex(f => f.id === id);
-    if (index !== -1) {
-        const funcionarioExcluido = funcionarios[index];
-        funcionarios.splice(index, 1);
-        atualizarTabelaFuncionarios();
-
-        // Adiciona atividade recente
+        // Adiciona uma atividade recente
         const atividade = {
-            tipo: 'Exclusão',
-            descricao: `Funcionário removido: ${funcionarioExcluido.nome}`,
+            tipo: 'Cadastro',
+            descricao: `Novo funcionário cadastrado: ${novoFuncionario.nome}`,
             data: new Date()
         };
         dadosFinanceiros.atividadesRecentes.unshift(atividade);
@@ -532,50 +485,175 @@ function excluirFuncionario(id) {
             dadosFinanceiros.atividadesRecentes.pop();
         }
         atualizarAtividadesRecentes(dadosFinanceiros.atividadesRecentes);
+
+        // Atualiza a tabela
+        await atualizarTabelaFuncionarios();
+
+        // Limpa o formulário
+        event.target.reset();
+        alert('Funcionário cadastrado com sucesso!');
+    } catch (error) {
+        console.error('Erro ao cadastrar funcionário:', error);
+        alert('Erro ao cadastrar funcionário: ' + error.message);
     }
 }
 
-// Função para pesquisar funcionários
-function pesquisarFuncionarios(termo) {
-    if (!termo) {
+// Função para carregar funcionários do backend
+async function carregarFuncionarios() {
+    try {
+        const dados = await fetchAPI('/php/funcionarios.php');
+        funcionarios = dados; // Atualiza a variável global
         atualizarTabelaFuncionarios();
-        return;
+    } catch (error) {
+        console.error('Erro ao carregar funcionários:', error);
+        alert('Erro ao carregar funcionários: ' + error.message);
     }
+}
 
-    const termoLowerCase = termo.toLowerCase();
-    const funcionariosFiltrados = funcionarios.filter(func => 
-        func.nome.toLowerCase().includes(termoLowerCase) ||
-        func.bi.toLowerCase().includes(termoLowerCase) ||
-        func.email.toLowerCase().includes(termoLowerCase)
-    );
-
+// Função para atualizar a tabela de funcionários
+async function atualizarTabelaFuncionarios() {
     const tbody = document.querySelector('#tabela_funcionarios');
     if (!tbody) return;
 
-    if (funcionariosFiltrados.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7">Nenhum funcionário encontrado</td></tr>';
-        return;
+    try {
+        // Busca os funcionários do backend PHP
+        const funcionarios = await apiFetchFuncionarios();
+        
+        if (funcionarios.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7">Nenhum funcionário cadastrado</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = funcionarios.map(func => `
+            <tr>
+                <td>${func.nome}</td>
+                <td>${func.bi}</td>
+                <td>${formatarData(func.data_nascimento)}</td>
+                <td>${func.telefone}</td>
+                <td>${func.endereco}</td>
+                <td>${func.email}</td>
+                <td class="actions">
+                    <button class="btn-icon" onclick="editarFuncionario('${func.id}')" title="Editar">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-icon" onclick="excluirFuncionario('${func.id}')" title="Excluir">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+    } catch (error) {
+        console.error('Erro ao carregar funcionários:', error);
+        tbody.innerHTML = '<tr><td colspan="7">Erro ao carregar funcionários</td></tr>';
+    }
+}
+
+// Função modificada para excluir funcionário usando a API PHP
+async function excluirFuncionario(id) {
+    if (!confirm('Tem certeza que deseja excluir este funcionário?')) return;
+
+    try {
+        await fetch(`${API_BASE_URL}/funcionarios.php/${id}`, {
+            method: 'DELETE'
+        });
+
+        // Adiciona atividade recente
+        const atividade = {
+            tipo: 'Exclusão',
+            descricao: `Funcionário removido com ID: ${id}`,
+            data: new Date()
+        };
+        dadosFinanceiros.atividadesRecentes.unshift(atividade);
+        if (dadosFinanceiros.atividadesRecentes.length > 10) {
+            dadosFinanceiros.atividadesRecentes.pop();
+        }
+        atualizarAtividadesRecentes(dadosFinanceiros.atividadesRecentes);
+
+        // Atualiza a tabela
+        await atualizarTabelaFuncionarios();
+        
+        alert('Funcionário excluído com sucesso!');
+    } catch (error) {
+        console.error('Erro ao excluir funcionário:', error);
+        alert('Erro ao excluir funcionário: ' + error.message);
+    }
+}
+
+// Função modificada para editar funcionário usando a API PHP
+async function editarFuncionario(id) {
+    try {
+        const funcionario = await fetch(`${API_BASE_URL}/funcionarios.php/${id}`).then(r => r.json());
+        
+        // Preenche o formulário com os dados do funcionário
+        document.getElementById('funcionario-nome').value = funcionario.nome;
+        document.getElementById('funcionario-bi').value = funcionario.bi;
+        document.getElementById('funcionario-data').value = funcionario.data_nascimento;
+        document.getElementById('funcionario-telefone').value = funcionario.telefone;
+        document.getElementById('funcionario-endereco').value = funcionario.endereco;
+        document.getElementById('funcionario-email').value = funcionario.email;
+
+        // Muda o comportamento do formulário para atualização
+        const form = document.getElementById('cadastrado-funcionario');
+        form.dataset.modo = 'edicao';
+        form.dataset.id = id;
+        
+        document.querySelector('button[type="submit"]').textContent = 'Atualizar Funcionário';
+    } catch (error) {
+        console.error('Erro ao carregar dados do funcionário:', error);
+        alert('Erro ao carregar dados do funcionário: ' + error.message);
+    }
+}
+
+// Event listener modificado para lidar com edição
+document.addEventListener('DOMContentLoaded', () => {
+    // Adiciona listener para o formulário de funcionários
+    const formFuncionario = document.getElementById('cadastrado-funcionario');
+    if (formFuncionario) {
+        formFuncionario.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (formFuncionario.dataset.modo === 'edicao') {
+                const id = formFuncionario.dataset.id;
+                try {
+                    const dadosAtualizados = {
+                        nome: document.getElementById('funcionario-nome').value,
+                        bi: document.getElementById('funcionario-bi').value,
+                        data_nascimento: document.getElementById('funcionario-data').value,
+                        telefone: document.getElementById('funcionario-telefone').value,
+                        endereco: document.getElementById('funcionario-endereco').value,
+                        email: document.getElementById('funcionario-email').value
+                    };
+
+                    await fetch(`${API_BASE_URL}/funcionarios.php/${id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(dadosAtualizados)
+                    });
+
+                    // Reset do formulário para modo de cadastro
+                    formFuncionario.dataset.modo = 'cadastro';
+                    formFuncionario.dataset.id = '';
+                    document.querySelector('button[type="submit"]').textContent = 'Cadastrar Funcionário';
+                    formFuncionario.reset();
+
+                    // Atualiza a tabela
+                    await atualizarTabelaFuncionarios();
+                    alert('Funcionário atualizado com sucesso!');
+                } catch (error) {
+                    console.error('Erro ao atualizar funcionário:', error);
+                    alert('Erro ao atualizar funcionário: ' + error.message);
+                }
+            } else {
+                await cadastrarFuncionario(e);
+            }
+        });
     }
 
-    tbody.innerHTML = funcionariosFiltrados.map(func => `
-        <tr>
-            <td>${func.nome}</td>
-            <td>${func.bi}</td>
-            <td>${formatarData(func.dataNascimento)}</td>
-            <td>${func.telefone}</td>
-            <td>${func.endereco}</td>
-            <td>${func.email}</td>
-            <td class="actions">
-                <button class="btn-icon" onclick="editarFuncionario('${func.id}')" title="Editar">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="btn-icon" onclick="excluirFuncionario('${func.id}')" title="Excluir">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-        </tr>
-    `).join('');
-}
+    // Carrega os funcionários inicialmente
+    atualizarTabelaFuncionarios();
+});
 
 // ==============================================================================
 // Funções de Gerenciamento de Fornecedores
@@ -710,17 +788,47 @@ document.addEventListener('DOMContentLoaded', () => {
     // Adiciona listener para o formulário de funcionários
     const formFuncionario = document.getElementById('cadastrado-funcionario');
     if (formFuncionario) {
-        formFuncionario.addEventListener('submit', cadastrarFuncionario);
+        formFuncionario.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (formFuncionario.dataset.modo === 'edicao') {
+                const id = formFuncionario.dataset.id;
+                try {
+                    const dadosAtualizados = {
+                        nome: document.getElementById('funcionario-nome').value,
+                        bi: document.getElementById('funcionario-bi').value,
+                        dataNascimento: document.getElementById('funcionario-data').value,
+                        telefone: document.getElementById('funcionario-telefone').value,
+                        endereco: document.getElementById('funcionario-endereco').value,
+                        email: document.getElementById('funcionario-email').value
+                    };
+
+                    await fetchAPI(`/php/funcionarios.php/${id}`, {
+                        method: 'PUT',
+                        body: JSON.stringify(dadosAtualizados)
+                    });
+
+                    // Reset do formulário para modo de cadastro
+                    formFuncionario.dataset.modo = 'cadastro';
+                    formFuncionario.dataset.id = '';
+                    document.querySelector('button[type="submit"]').textContent = 'Cadastrar Funcionário';
+                    formFuncionario.reset();
+
+                    // Atualiza a tabela
+                    await carregarFuncionarios();
+                    alert('Funcionário atualizado com sucesso!');
+                } catch (error) {
+                    console.error('Erro ao atualizar funcionário:', error);
+                    alert('Erro ao atualizar funcionário: ' + error.message);
+                }
+            } else {
+                await cadastrarFuncionario(e);
+            }
+        });
     }
 
-    // Adiciona listener para o campo de pesquisa
-    const campoPesquisa = document.getElementById('pesquisar');
-    if (campoPesquisa) {
-        campoPesquisa.addEventListener('input', (e) => pesquisarFuncionarios(e.target.value));
-    }
-
-    // Inicializa a tabela de funcionários
-    atualizarTabelaFuncionarios();
+    // Inicializa carregando os funcionários do backend
+    carregarFuncionarios();
 
     // Adiciona listener para o formulário de fornecedores
     const formFornecedor = document.getElementById('cadastrado-fornecedor');
@@ -737,4 +845,82 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicializa a tabela de fornecedores
     atualizarTabelaFornecedores();
 });
+
+// ==============================================================================
+// Funções de Comunicação com Backend (API)
+// ==============================================================================
+
+// URL base para as requisições à API
+const API_BASE_URL = '/php';
+
+// Funções de API para Funcionários
+async function apiFetchFuncionarios() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/funcionarios.php`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Erro ao buscar funcionários:', error);
+        throw error;
+    }
+}
+
+async function apiCadastrarFuncionario(funcionario) {
+    try {
+        const response = await fetch(`${API_BASE_URL}/funcionarios.php`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(funcionario)
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Erro ao cadastrar funcionário:', error);
+        throw error;
+    }
+}
+
+async function apiAtualizarFuncionario(id, funcionario) {
+    try {
+        const response = await fetch(`${API_BASE_URL}/funcionarios.php/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(funcionario)
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Erro ao atualizar funcionário:', error);
+        throw error;
+    }
+}
+
+async function apiExcluirFuncionario(id) {
+    try {
+        const response = await fetch(`${API_BASE_URL}/funcionarios.php/${id}`, {
+            method: 'DELETE'
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Erro ao excluir funcionário:', error);
+        throw error;
+    }
+}
 
