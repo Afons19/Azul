@@ -238,11 +238,11 @@ textarea:focus {
 }
 
 /* Campo de pesquisa */
-.search-container {
+/* .search-container {
     flex: 0 0 300px;
-}
+} */
 
-.search-input {
+/* .search-input {
     width: 100%;
     padding: 10px 15px;
     border: 1px solid #ddd;
@@ -252,7 +252,7 @@ textarea:focus {
     background-repeat: no-repeat;
     background-position: calc(100% - 12px) center;
     padding-right: 35px;
-}
+} */
 
 /* Botões de ação */
 .form-actions {

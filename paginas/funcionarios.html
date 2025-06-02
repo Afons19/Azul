@@ -19,7 +19,8 @@
         </menu>
     </header>
     <main>
-        <article>
+        <article class="form-container">
+            <h2 style="margin-top: 120px;">Novo <div>Funcionário</div></h2>
             <form id="cadastrado-funcionario" method="post">
                 <label for="funcionario-nome">Nome Completo:</label>
                 <input type="text" id="funcionario-nome" required>
@@ -34,10 +35,36 @@
                 <label for="funcionario-endereco">Endereço:</label>
                 <input type="text" id="funcionario-endereco" placeholder="Gabela, Kwanza-Sul" required>
                 <label for="funcionario-email">E-mail:</label>
-                <input type="email" id="funcionario-email" placeholder="exemplo@gmail.com" required>
-                <button type="submit">Cadastrar Funcionário</button>
+                <input type="email" id="funcionario-email" placeholder="exemplo@gmail.com" required>                <button type="submit">Cadastrar Funcionário</button>           
             </form>
         </article>
+        
+        <article class="table-container">
+            <div class="table-header">
+                <h2>Funcionários Cadastrados</h2>
+                <div class="search-container">
+                    <input type="search" id="pesquisar" placeholder="Pesquisar funcionários..." class="search-input">
+                </div>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome Completo</th>
+                        <th>BI</th>
+                        <th>Data Nascimento</th>
+                        <th>Telefone</th>
+                        <th>Endereço</th>
+                        <th>E-mail</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela_funcionarios">
+                    <tr><td colspan="7">A carregar funcionários...</td></tr>
+                </tbody>
+            </table>
+        </article>
     </main>
+    <script src="../backend/server.js"></script>
 </body>
 </html>

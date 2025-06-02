@@ -184,7 +184,7 @@
                         <input type="password" name="senha" id="isenha" autocomplete="current-password" minlength="8" maxlength="20" placeholder="Senha" required>
                         <label for="isenha" style="font-size: .9em;">Senha</label>
                     </div>
-                    <input type="submit" value="Entrar">
+                    <input type="submit" value="Entrar" id="btnIniciarSessao" onclick="iniciarSessao()">
                     <a href="esqueci.html" class="botao">
                         Esqueci a senha <span class="material-icons">mail</span>
                     </a>
@@ -192,5 +192,6 @@
             </div>
         </section>
     </main>  
+    <script src="backend/server.js"></script>
 </body>
 </html>

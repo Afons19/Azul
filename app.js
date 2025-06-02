@@ -141,6 +141,7 @@ function atualizarTabelaFornecedores(fornecedores) {
   });
 }
 
+
 function atualizarAtividadesRecentes(atividades) {
     const listaAtividades = document.getElementById("atividade_recentes");
     if (!listaAtividades) return;
@@ -412,4 +413,328 @@ setInterval(async () => {
     }
 }, 60000); // Verificar a cada 60 segundos
 */
+
+// ==============================================================================
+// Funções de Gerenciamento de Funcionários
+// ==============================================================================
+
+// Armazenamento local dos funcionários (simulando um banco de dados)
+let funcionarios = [];
+
+// Função para gerar ID único
+function gerarId() {
+    return 'FUNC' + Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+}
+
+// Função para cadastrar novo funcionário
+function cadastrarFuncionario(event) {
+    event.preventDefault();
+
+    const novoFuncionario = {
+        id: gerarId(),
+        nome: document.getElementById('funcionario-nome').value,
+        bi: document.getElementById('funcionario-bi').value,
+        foto: document.getElementById('funcionario-foto').files[0]?.name || 'sem-foto.jpg',
+        dataNascimento: document.getElementById('funcionario-data').value,
+        telefone: document.getElementById('funcionario-telefone').value,
+        endereco: document.getElementById('funcionario-endereco').value,
+        email: document.getElementById('funcionario-email').value,
+        dataCadastro: new Date().toISOString()
+    };
+
+    // Validações básicas
+    if (!novoFuncionario.nome || !novoFuncionario.bi || !novoFuncionario.telefone) {
+        alert('Por favor, preencha todos os campos obrigatórios!');
+        return;
+    }
+
+    // Adiciona o novo funcionário ao array
+    funcionarios.push(novoFuncionario);
+
+    // Atualiza a tabela
+    atualizarTabelaFuncionarios();
+
+    // Adiciona uma atividade recente
+    const atividade = {
+        tipo: 'Cadastro',
+        descricao: `Novo funcionário cadastrado: ${novoFuncionario.nome}`,
+        data: new Date()
+    };
+    dadosFinanceiros.atividadesRecentes.unshift(atividade);
+    if (dadosFinanceiros.atividadesRecentes.length > 10) {
+        dadosFinanceiros.atividadesRecentes.pop();
+    }
+    atualizarAtividadesRecentes(dadosFinanceiros.atividadesRecentes);
+
+    // Limpa o formulário
+    event.target.reset();
+    alert('Funcionário cadastrado com sucesso!');
+}
+
+// Função para atualizar a tabela de funcionários
+function atualizarTabelaFuncionarios() {
+    const tbody = document.querySelector('#tabela_funcionarios');
+    if (!tbody) return;
+
+    if (funcionarios.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7">Nenhum funcionário cadastrado</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = funcionarios.map(func => `
+        <tr>
+            <td>${func.nome}</td>
+            <td>${func.bi}</td>
+            <td>${formatarData(func.dataNascimento)}</td>
+            <td>${func.telefone}</td>
+            <td>${func.endereco}</td>
+            <td>${func.email}</td>
+            <td class="actions">
+                <button class="btn-icon" onclick="editarFuncionario('${func.id}')" title="Editar">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn-icon" onclick="excluirFuncionario('${func.id}')" title="Excluir">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+// Função para editar funcionário
+function editarFuncionario(id) {
+    const funcionario = funcionarios.find(f => f.id === id);
+    if (!funcionario) return;
+
+    // Aqui você pode implementar a lógica de edição
+    // Por exemplo, abrir um modal ou redirecionar para uma página de edição
+    console.log('Editar funcionário:', funcionario);
+}
+
+// Função para excluir funcionário
+function excluirFuncionario(id) {
+    if (!confirm('Tem certeza que deseja excluir este funcionário?')) return;
+
+    const index = funcionarios.findIndex(f => f.id === id);
+    if (index !== -1) {
+        const funcionarioExcluido = funcionarios[index];
+        funcionarios.splice(index, 1);
+        atualizarTabelaFuncionarios();
+
+        // Adiciona atividade recente
+        const atividade = {
+            tipo: 'Exclusão',
+            descricao: `Funcionário removido: ${funcionarioExcluido.nome}`,
+            data: new Date()
+        };
+        dadosFinanceiros.atividadesRecentes.unshift(atividade);
+        if (dadosFinanceiros.atividadesRecentes.length > 10) {
+            dadosFinanceiros.atividadesRecentes.pop();
+        }
+        atualizarAtividadesRecentes(dadosFinanceiros.atividadesRecentes);
+    }
+}
+
+// Função para pesquisar funcionários
+function pesquisarFuncionarios(termo) {
+    if (!termo) {
+        atualizarTabelaFuncionarios();
+        return;
+    }
+
+    const termoLowerCase = termo.toLowerCase();
+    const funcionariosFiltrados = funcionarios.filter(func => 
+        func.nome.toLowerCase().includes(termoLowerCase) ||
+        func.bi.toLowerCase().includes(termoLowerCase) ||
+        func.email.toLowerCase().includes(termoLowerCase)
+    );
+
+    const tbody = document.querySelector('#tabela_funcionarios');
+    if (!tbody) return;
+
+    if (funcionariosFiltrados.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7">Nenhum funcionário encontrado</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = funcionariosFiltrados.map(func => `
+        <tr>
+            <td>${func.nome}</td>
+            <td>${func.bi}</td>
+            <td>${formatarData(func.dataNascimento)}</td>
+            <td>${func.telefone}</td>
+            <td>${func.endereco}</td>
+            <td>${func.email}</td>
+            <td class="actions">
+                <button class="btn-icon" onclick="editarFuncionario('${func.id}')" title="Editar">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn-icon" onclick="excluirFuncionario('${func.id}')" title="Excluir">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+// ==============================================================================
+// Funções de Gerenciamento de Fornecedores
+// ==============================================================================
+
+// Armazenamento local dos fornecedores (simulando um banco de dados)
+let fornecedores = [];
+
+// Função para cadastrar novo fornecedor
+function cadastrarFornecedor(event) {
+    event.preventDefault();
+
+    const novoFornecedor = {
+        id: gerarId(), // Reutilizando a função gerarId() que já existe
+        nome: document.getElementById('fornecedor-nome').value,
+        nif: document.getElementById('fornecedor-nif').value,
+        foto: document.getElementById('imagem').files[0]?.name || 'sem-foto.jpg',
+        telefone: document.getElementById('fornecedor-telefone').value,
+        endereco: document.getElementById('fornecedor-endereco').value,
+        estabelecimento: document.getElementById('fornecedor-estabelecimento').value,
+        email: document.getElementById('fornecedor-email').value,
+        dataCadastro: new Date().toISOString()
+    };
+
+    // Validações básicas
+    if (!novoFornecedor.nome || !novoFornecedor.nif || !novoFornecedor.telefone) {
+        alert('Por favor, preencha todos os campos obrigatórios!');
+        return;
+    }
+
+    // Adiciona o novo fornecedor ao array
+    fornecedores.push(novoFornecedor);
+
+    // Atualiza a tabela
+    atualizarTabelaFornecedores();
+
+    // Adiciona uma atividade recente
+    const atividade = {
+        tipo: 'Cadastro',
+        descricao: `Novo fornecedor cadastrado: ${novoFornecedor.nome}`,
+        data: new Date()
+    };
+    dadosFinanceiros.atividadesRecentes.unshift(atividade);
+    if (dadosFinanceiros.atividadesRecentes.length > 10) {
+        dadosFinanceiros.atividadesRecentes.pop();
+    }
+    atualizarAtividadesRecentes(dadosFinanceiros.atividadesRecentes);
+
+    // Limpa o formulário
+    event.target.reset();
+    alert('Fornecedor cadastrado com sucesso!');
+}
+
+// Função para editar fornecedor
+function editarFornecedor(id) {
+    const fornecedor = fornecedores.find(f => f.id === id);
+    if (!fornecedor) return;
+
+    // Implementar a lógica de edição conforme necessário
+    console.log('Editar fornecedor:', fornecedor);
+}
+
+// Função para excluir fornecedor
+function excluirFornecedor(id) {
+    if (!confirm('Tem certeza que deseja excluir este fornecedor?')) return;
+
+    const index = fornecedores.findIndex(f => f.id === id);
+    if (index !== -1) {
+        const fornecedorExcluido = fornecedores[index];
+        fornecedores.splice(index, 1);
+        atualizarTabelaFornecedores();
+
+        // Adiciona atividade recente
+        const atividade = {
+            tipo: 'Exclusão',
+            descricao: `Fornecedor removido: ${fornecedorExcluido.nome}`,
+            data: new Date()
+        };
+        dadosFinanceiros.atividadesRecentes.unshift(atividade);
+        if (dadosFinanceiros.atividadesRecentes.length > 10) {
+            dadosFinanceiros.atividadesRecentes.pop();
+        }
+        atualizarAtividadesRecentes(dadosFinanceiros.atividadesRecentes);
+    }
+}
+
+// Função para pesquisar fornecedores
+function pesquisarFornecedores(termo) {
+    if (!termo) {
+        atualizarTabelaFornecedores();
+        return;
+    }
+
+    const termoLowerCase = termo.toLowerCase();
+    const fornecedoresFiltrados = fornecedores.filter(fornec => 
+        fornec.nome.toLowerCase().includes(termoLowerCase) ||
+        fornec.nif.toLowerCase().includes(termoLowerCase) ||
+        fornec.email.toLowerCase().includes(termoLowerCase)
+    );
+
+    const tbody = document.querySelector('#tabela_fornecedores');
+    if (!tbody) return;
+
+    if (fornecedoresFiltrados.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7">Nenhum fornecedor encontrado</td></tr>';
+        return;
+    }
+
+    // Atualiza a tabela com os resultados da pesquisa
+    tbody.innerHTML = fornecedoresFiltrados.map(fornec => `
+        <tr>
+            <td>${fornec.nome}</td>
+            <td>${fornec.nif}</td>
+            <td>${fornec.telefone}</td>
+            <td>${fornec.endereco}</td>
+            <td>${fornec.estabelecimento}</td>
+            <td>${fornec.email}</td>
+            <td class="actions">
+                <button class="btn-icon" onclick="editarFornecedor('${fornec.id}')" title="Editar">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn-icon" onclick="excluirFornecedor('${fornec.id}')" title="Excluir">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+// Event Listeners
+document.addEventListener('DOMContentLoaded', () => {
+    // Adiciona listener para o formulário de funcionários
+    const formFuncionario = document.getElementById('cadastrado-funcionario');
+    if (formFuncionario) {
+        formFuncionario.addEventListener('submit', cadastrarFuncionario);
+    }
+
+    // Adiciona listener para o campo de pesquisa
+    const campoPesquisa = document.getElementById('pesquisar');
+    if (campoPesquisa) {
+        campoPesquisa.addEventListener('input', (e) => pesquisarFuncionarios(e.target.value));
+    }
+
+    // Inicializa a tabela de funcionários
+    atualizarTabelaFuncionarios();
+
+    // Adiciona listener para o formulário de fornecedores
+    const formFornecedor = document.getElementById('cadastrado-fornecedor');
+    if (formFornecedor) {
+        formFornecedor.addEventListener('submit', cadastrarFornecedor);
+    }
+
+    // Adiciona listener para o campo de pesquisa de fornecedores
+    const campoPesquisaFornecedores = document.getElementById('pesquisar-fornecedores');
+    if (campoPesquisaFornecedores) {
+        campoPesquisaFornecedores.addEventListener('input', (e) => pesquisarFornecedores(e.target.value));
+    }
+
+    // Inicializa a tabela de fornecedores
+    atualizarTabelaFornecedores();
+});
 

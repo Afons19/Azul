@@ -18,7 +18,7 @@
             </nav>
         </menu>
     </header>
-    <main>
+    <main>        
         <article class="form-container">
             <h2 style="margin-top: 120px;">Novo<div>Fornecedor</div></h2>
             <form id="cadastrado-fornecedor" method="post">
@@ -39,6 +39,34 @@
                 <button type="submit">Cadastrar Fornecedor</button>
             </form>
         </article>
+
+        <article class="table-container">
+            <div class="table-header">
+                <h2>Fornecedores Cadastrados</h2>
+                <div class="search-container">
+                    <input type="search" id="pesquisar-fornecedores" placeholder="Pesquisar fornecedores..." class="search-input">
+                </div>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome Completo</th>
+                        <th>NIF</th>
+                        <th>Telefone</th>
+                        <th>Endereço</th>
+                        <th>Estabelecimento</th>
+                        <th>E-mail</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela_fornecedores">
+                    <tr><td colspan="7">A carregar fornecedores...</td></tr>
+                </tbody>
+            </table>
+        </article>
     </main>
+    <script src="../app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </body>
 </html>
