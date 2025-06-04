@@ -21,13 +21,13 @@
     <main>        
         <article class="form-container">
             <h2 style="margin-top: 120px;">Novo<div>Fornecedor</div></h2>
-            <form id="cadastrado-fornecedor" method="post">
+            <form id="form-fornecedor" method="post">
                 <label for="fornecedor-nome">Nome Completo:</label>
                 <input type="text" id="fornecedor-nome" placeholder="Amós Bulebule" required>
                 <label for="fornecedor-nif">NIF:</label>
                 <input type="text" id="fornecedor-nif" required>
-                <label for="imagem">Fotográfia do Fornecedor:</label>
-                <input type="file" id="imagem" accept="image/*" required>
+                <label for="foto-fornecedor">Fotográfia do Fornecedor:</label>
+                <input type="file" id="foto-fornecedor" accept="image/*" required>
                 <label for="fornecedor-telefone">Número de Telefone:</label>
                 <input type="tel" id="fornecedor-telefone" placeholder="923-456-234" maxlength="9" required>
                 <label for="fornecedor-endereco">Endereço:</label>
@@ -60,22 +60,11 @@
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody id="tabela_fornecedores">
+                <tbody id="tabela-fornecedores">
                     <tr><td colspan="7">A carregar fornecedores...</td></tr>
                 </tbody>
             </table>
         </article>
     </main>
-    <script src="/assets/js/supabase.js" type="module"></script>
-    <script src="/assets/js/auth.js" type="module"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const session = await checkAuth()
-                // Mostrar informações do usuário
-                if (session?.user) {
-                document.getElementById('user-name').textContent = session.user.email
-            }
-        })
-    </script>
 </body>
 </html>

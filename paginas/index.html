@@ -11,7 +11,7 @@
 <body>
     <aside id="sidebar">
         <div id="sidebar-header">
-            <h1 id="dashUtilizador" style="font-size: 15pt;">Adm | Vanessa Morais</h1>
+            <h1 id="dashUtilizador" style="font-size: 15pt;"></h1>
         </div>
         <ul id="sidebar-menu">
             <h1 style="margin-left: 10px;">Menu</h1>
@@ -74,7 +74,7 @@
             </article>
             <article class="tabelas">
                 <h2>Atividades Recentes</h2>
-                <ul id="atividade_recentes" id="atividade_recente_ui">
+                <ul id="atividade_recentes">
                     <li>A carregar atividades...</li>
                 </ul>
             </article>
@@ -96,7 +96,8 @@
                         <tr><td colspan="7">A carregar vendas...</td></tr>
                     </tbody>
                 </table>
-            </article>            <article class="tabelas">
+            </article>            
+            <article class="tabelas">
                 <h2>Fornecedores</h2>
                 <table id="tabelaFornecedores">
                     <thead>
@@ -136,17 +137,5 @@
             </article>
         </main>
     </div>
-    <script src="../assets/js/auth.js" type="module"></script>  
-    <script src="../assets/js/supabase.js" type="module"></script>
-    <script src="../assets/js/crud.js" type="module"></script>  
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const session = await checkAuth()
-                // Mostrar informações do usuário
-                if (session?.user) {
-                document.getElementById('user-name').textContent = session.user.email
-            }
-        })
-    </script>
 </body>
 </html>

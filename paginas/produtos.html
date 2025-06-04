@@ -22,20 +22,30 @@
         <article class="form-container">
             <h2 style="margin-top: 120px;">Novo <div style="text-indent: -4;">Produto</div></h2>
             <form id="cadastro-produto" autocomplete="off">
-                <label for="pnome">Nome do Produto:</label>
-                <input type="text" id="pnome" required>
-                <label for="pcategoria">Categoria:</label>
-                <input type="text" id="pcategoria" required>
-                <label for="pfornecedor">Fornecedor:</label>
-                <input type="text" id="pfornecedor" required>
-                <label for="ppreco">Preço:</label>
-                <input type="number" id="ppreco" required>
-                <label for="pvalorAd">Preço do produto adquirido:</label>
-                <input type="number" id="pvalorAd">
-                <label for="pdata_entrega">Data de Entrega:</label>
-                <input type="date" id="pdata_entrega" required>
-                <label for="pquantidade">Quantidade:</label>
-                <input type="number" id="pquantidade" required>
+                <label for="produto-nome">Nome do Produto:</label>
+                <input type="text" id="produto-nome" required style="margin-bottom: 10px;">
+                <label for="produto-categoria" style="margin-right: 13px;">Categoria:</label>
+                <select name="produto-categoria" id="produto-categoria" style="margin-bottom: 4px;">
+                    <option value="Escolha a categoria do produto" id="produto-categoria-opc">Selecione a categoria do produto</option>
+                </select>
+
+                <label for="produto-fornecedor">Fornecedor:</label>
+                <select name="produto-fornecedor" id="produto-fornecedor" required>
+                    <option value="Selecione o fornecedor">Selecione o fornecedor</option>
+                </select><br>
+
+                <label for="produto-preco">Preço:</label>
+                <input type="number" id="produto-preco" required>
+
+                <label for="produto-valor-Adiquirido">Preço do produto adquirido:</label>
+                <input type="number" id="produto-valor-Adiquirido">
+
+                <label for="produto-data-entrega">Data de Entrega:</label>
+                <input type="date" id="produto-data-entrega" required>
+
+                <label for="produto-quantidade">Quantidade:</label>
+                <input type="number" id="produto-quantidade" required>
+
                 <button type="submit">Cadastrar</button>
             </form>
         </article>
@@ -53,22 +63,11 @@
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tabela-produtos">
             
                 </tbody>
             </table>
         </article>
     </main>
-    <script src="/assets/js/supabase.js" type="module"></script>
-    <script src="/assets/js/auth.js" type="module"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-        const session = await checkAuth()
-            // Mostrar informações do usuário
-            if (session?.user) {
-                document.getElementById('user-name').textContent = session.user.email
-            }
-        })
-    </script>
 </body>
 </html>

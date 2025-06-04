@@ -72,22 +72,11 @@
                         <th>Pagamento</th>
                     </tr>
                 </thead>
-                <tbody id="tabelaVendas">
+                <tbody id="tabela-vendas">
                     <!-- As vendas serão inseridas aqui dinamicamente -->
                 </tbody>            
             </table>
         </article>
     </main>
-    <script src="/assets/js/supabase.js" type="module"></script>
-    <script src="/assets/js/auth.js" type="module"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-        const session = await checkAuth()
-            // Mostrar informações do usuário
-            if (session?.user) {
-                document.getElementById('user-name').textContent = session.user.email
-            }
-        })
-    </script>
 </body>
 </html>

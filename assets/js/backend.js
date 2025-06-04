@@ -66,6 +66,18 @@ export const backend = {
     return data[0];
   },
 
+  async getProdutosComRelacionamentos() {
+    const { data, error } = await supabase
+      .from('produtos')
+      .select(`
+        *,
+        categorias(nome),
+        fornecedores(nome)
+      `)
+    if (error) throw error
+    return data
+  },
+
   // categorias
   async getCategorias() {
     const { data, error } = await supabase.from("categorias").select("*");
@@ -88,6 +100,14 @@ export const backend = {
     return data[0];
   },
 
+  async getCategoriasCount() {
+    const { data, error } = await supabase
+      .from('categorias')
+      .select('*, produtos(count)')
+    if (error) throw error
+    return data
+  },
+
   // Registrar Vendas
   async getRegistrarVendas() {
     const { data, error } = await supabase.from("registrar-vendas").select("*");
@@ -95,7 +115,7 @@ export const backend = {
     return data;
   },
 
-  async addFornecedor(registrarVendas) {
+  async addRegistrarVendas(registrarVendas) {
     const { data, error } = await supabase
       .from("registrar-vendas")
       .insert([registrarVendas])
@@ -108,6 +128,28 @@ export const backend = {
     );
 
     return data[0];
+  },
+
+  // Exemplo de método específico
+    async registrarVendaComTransacao(dadosVenda) {
+    const { data, error } = await supabase.rpc('registrar_venda', {
+      produto_id: dadosVenda.produto_id,
+      quantidade: dadosVenda.quantidade,
+      valor_unitario: dadosVenda.valor_unitario,
+      forma_pagamento: dadosVenda.forma_pagamento,
+      funcionario_id: dadosVenda.funcionario_id
+    });
+
+    if (error) {
+      console.error('Erro na transação:', error);
+      throw new Error(`Falha ao registrar venda: ${error.message}`);
+    }
+
+    await this._adicionarAtividade(
+      `Nova venda registrada: Produto ID ${dadosVenda.produto_id}`
+    );
+
+    return data;
   },
 
   // Método auxiliar para atividades
@@ -125,3 +167,16 @@ export const backend = {
     ]);
   },
 };
+
+export function configurarAtualizacaoEmTempoReal(callback) {
+  const subscription = supabase
+    .channel('vendas-changes')
+    .on(
+      'postgres_changes',
+      { event: 'INSERT', schema: 'public', table: 'vendas' },
+      payload => callback(payload.new)
+    )
+    .subscribe();
+
+  return () => supabase.removeChannel(subscription);
+}

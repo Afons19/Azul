@@ -68,21 +68,9 @@
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tabela-funcionarios">
                 </tbody>
             </table>
         </article>
-    </main>
-    <script src="/assets/js/supabase.js" type="module"></script>
-    <script src="/assets/js/auth.js" type="module"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-        const session = await checkAuth()
-            // Mostrar informações do usuário
-            if (session?.user) {
-            document.getElementById('user-name').textContent = session.user.email
-        }
-    })
-    </script>
 </body>
 </html>
