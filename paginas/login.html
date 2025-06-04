@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./supabase.js"></script>
     <title>Login</title>
     <style>
         :root {
@@ -175,22 +177,50 @@
                 </p>
             </div>
             <div id="formulario">
-                <form action="#" method="post" autocomplete="on">
+                <form id="loginForm">
                     <div class="campo">
-                        <input type="email" name="login" id="ilogin" placeholder="exemplo@gmail.com" autocomplete="email" maxlength="30" required>
-                        <label for="ilogin">Login</label>
+                        <input type="email" id="email" placeholder="exemplo@gmail.com" required>
                     </div>
                     <div class="campo">
-                        <input type="password" name="senha" id="isenha" autocomplete="current-password" minlength="8" maxlength="20" placeholder="Senha" required>
-                        <label for="isenha" style="font-size: .9em;">Senha</label>
+                        <input type="password" id="password" placeholder="Senha" required>
                     </div>
-                    <input type="submit" value="Entrar" id="btnIniciarSessao" onclick="iniciarSessao()">
-                    <a href="esqueci.html" class="botao">
-                        Esqueci a senha <span class="material-icons">mail</span>
-                    </a>
+                    <input type="submit" value="Entrar">
+                    <a href="esqueci.html" class="botao"> Esqueci a senha </a>
                 </form>
             </div>
         </section>
     </main>  
+    <script src="/assets/js/supabase.js" type="module"></script>
+    <script src="/assets/js/auth.js" type="module"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            const email = document.getElementById('email').value
+            const password = document.getElementById('password').value
+
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email,
+                    password
+                })
+
+                if (error) throw error
+
+                // Redirecionar para o dashboard após login bem-sucedido
+                window.location.href = 'index.html'
+            } catch (error) {
+                alert('Erro ao fazer login: ' + error.message)
+            }
+        })
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const session = await checkAuth()
+                // Mostrar informações do usuário
+                if (session?.user) {
+                document.getElementById('user-name').textContent = session.user.email
+            }
+        })
+    </script>
 </body>
 </html>

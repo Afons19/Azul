@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="stylePaginas.css">
+    <link rel="stylesheet" href="../assets/css/stylePaginas.css">
     <title>Cadastro de Fornecedores</title>
 </head>
 <body>
@@ -12,7 +12,7 @@
         <menu>
             <nav aria-label="breadcrumb" id="breadcrumb">
                 <ul>
-                    <li><a href="../index.html">Dashboard </a></li>
+                    <li><a href="index.html">Dashboard </a></li>
                     <li><a href="fornecedores.html">Cadastro de Funcionários</a></li>
                 </ul>
             </nav>
@@ -66,5 +66,16 @@
             </table>
         </article>
     </main>
+    <script src="/assets/js/supabase.js" type="module"></script>
+    <script src="/assets/js/auth.js" type="module"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const session = await checkAuth()
+                // Mostrar informações do usuário
+                if (session?.user) {
+                document.getElementById('user-name').textContent = session.user.email
+            }
+        })
+    </script>
 </body>
 </html>

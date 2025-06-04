@@ -2,8 +2,8 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="stylePaginas.css">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/stylePaginas.css">    
     <title>Categorias de Produtos</title>
 </head>
 <body>
@@ -12,7 +12,7 @@
         <menu>
             <nav aria-label="breadcrumb" id="breadcrumb">
                 <ul>
-                    <li><a href="../index.html">Dashboard </a></li>
+                    <li><a href="index.html">Dashboard </a></li>
                     <li><a href="categorias.html">Categorias de Produtos</a></li>
                 </ul>
             </nav>
@@ -89,7 +89,16 @@
             </table>
         </article>
     </main>
-
-    <!-- Font Awesome para ícones -->    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="/assets/js/supabase.js" type="module"></script>
+    <script src="/assets/js/auth.js" type="module"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const session = await checkAuth()
+                // Mostrar informações do usuário
+                if (session?.user) {
+                    document.getElementById('user-name').textContent = session.user.email
+                }
+            })
+    </script>
 </body>
 </html>

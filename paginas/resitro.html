@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./supabase.js"></script>
+    <title>Registro</title>
+    <style>
+        :root {
+            --cor001: rgb(5, 5, 100);
+            --cor002: #f0f0f0;
+            --cor003: rgb(19, 19, 168);
+        }
+    
+        * {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+        }
+    
+        html,
+        body {
+            background-color: var(--cor002);
+            height: 100vh;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        #registro {
+            background-color: rgb(255, 255, 255);
+            border-radius: 3px;
+            box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.274);
+        }
+            
+        section#registro {
+            width: 800px;
+            height: 400px;
+        }
+    
+        #formulario {
+            display: block;
+            padding: 10px;
+        }
+
+        section#registro>div#imagem {
+            color: white;
+            float: left;
+            width: 50%;
+            height: 100%;
+            font-size: 17pt;
+            text-align: center;
+            background-color: var(--cor001);
+        }
+
+        #formulario {
+            float: right;
+            width: 50%;
+            margin-top: 40px;    
+        }
+    
+        div>h1 {
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    
+        div>p {
+            font-size: 0.8em;
+        }
+    
+        #formulario>p {
+            font-size: 1em;
+            margin: 20px 0px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--cor001);
+            box-shadow: 0 0 0 3px rgba(5, 5, 100, 0.1);
+        }
+    
+        div.campo {
+            background-color: var(--cor002);
+            border-color: var(--cor001);
+            display: block;
+            width: 100%;
+            height: 40px;
+            border-radius: 3px;
+            margin: 5px 0px;
+        }
+    
+        div.campo>label {
+            display: none;
+        }
+    
+        div.campo>input {
+            border-color: var(--cor001);
+            font-size: 1em;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            padding: 4px;
+            border: 1px solid black;
+        }
+    
+        div.campo>input:focus-within {
+            background-color: white;
+        }
+    
+        input[type=submit] {
+            display: block;
+            font-size: 1em;
+            width: 100%;
+            height: 40px;
+            background-color: var(--cor001);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+    
+        input[type=submit]:hover {
+            background-color: var(--cor003);
+            transition: .5s;
+        }
+    
+        form>a.botao {
+            display: block;
+            text-align: center;
+            font-size: 1em;
+            width: 100%;
+            height: 40px;
+            padding-top: 7px;
+            margin-top: 5px;
+            background-color: #ffff;
+            color: var(--cor001);
+            transition: .9s;
+            border: 1px solid var(--cor001);
+            border-radius: 5px;
+            text-decoration: none;
+        }
+    
+        form>a.botao:hover {
+            background-color: var(--cor001);
+            color: var(--cor002);
+        }
+    </style>
+</head>
+<body>
+     <main>
+        <section id="registro">
+            <div id="imagem" style="padding: 20px;">
+                <h1 style="margin-top: 70px;">Registro</h1>
+                <p>
+                    Crie sua conta para começar. <br> 
+                    É rápido e fácil!
+                </p>
+            </div>
+            <div id="formulario">
+                <form id="registerForm">
+                    <div class="campo">
+                        <input type="text" id="reg-nome" placeholder="Nome completo" required>
+                    </div>
+                    <div class="campo">
+                        <input type="email" id="reg-email" placeholder="exemplo@gmail.com" required>
+                    </div>
+                    <div class="campo">
+                        <input type="password" id="reg-password" placeholder="Senha (mínimo 8 caracteres)" minlength="8" required>
+                    </div>
+                    <div class="campo">
+                        <input type="password" id="reg-confirm" placeholder="Confirmar senha" required>
+                    </div>
+                    <input type="submit" value="Registrar">
+                    <a href="login.html" class="botao">Já tem uma conta? Faça login</a>
+                </form>
+            </div>
+        </section>
+    </main>  
+    <script src="/assets/js/supabase.js" type="module"></script>
+    <script src="/assets/js/auth.js" type="module"></script>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            const nome = document.getElementById('reg-nome').value
+            const email = document.getElementById('reg-email').value
+            const password = document.getElementById('reg-password').value
+            const confirm = document.getElementById('reg-confirm').value
+
+            // Validações
+            if (password !== confirm) {
+                alert('As senhas não coincidem!')
+                return
+            }
+
+            if (password.length < 8) {
+                alert('A senha deve ter pelo menos 8 caracteres!')
+                return
+            }
+
+            if (!email.includes('@') || !email.includes('.')) {
+                alert('Por favor, insira um email válido!')
+                return
+            }
+
+            if (nome.length < 3) {
+                alert('O nome deve ter pelo menos 3 caracteres!')
+                return
+            }
+
+            try {
+                const { data, error } = await supabase.auth.signUp({
+                    email,
+                    password,
+                    options: {
+                        data: {
+                            nome: nome
+                        }
+                    }
+                })
+
+                if (error) throw error
+
+                alert('Registro realizado com sucesso! Verifique seu email para confirmação.')
+                window.location.href = 'login.html'
+            } catch (error) {
+                alert('Erro no registro: ' + error.message)
+            }
+        })
+    </script>
+</body>
+</html>
