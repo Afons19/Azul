@@ -68,7 +68,7 @@ body { background-color: var(--cor003); }
 }
 
 #sidebar-menu li {
-    padding: 10px 20px;
+    padding: 6px 20px;
     transition: background-color 0.3s;
 }
 
@@ -178,9 +178,12 @@ tr:hover { background-color: #f2f2f2; }
     - Melhorar o design de categorias [X]
     - Criar o/s aquivo/s JS [X]
     - Criar uma branch [X]
-    - Organizar o fluxo de relações das páginas []
-    - Conectar com o banco de dados []
-    - Conectar com as outras páginas []
-    - Criar o script de autentificação []
+    - Organizar o fluxo de relações das páginas [X]
+    - Conectar com o banco de dados [X]
+    - Conectar com as outras páginas [X]
+    - Criar o script de autentificação [X]
+    - Script
+    - Terminar de resolver o bug em categorias e funcionários []
+    - Publicar o site/projto []
 
 */

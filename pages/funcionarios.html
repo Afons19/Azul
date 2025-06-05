@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/stylePaginas.css">
     <title>Cadastro de Funcionários</title>
 </head>
+
 <body>
     <header>
         <h1>Cadastro de Funcionários</h1>
@@ -20,8 +22,9 @@
     </header>
     <main>
         <article class="form-container">
-            <h2 style="margin-top: 120px;">Novo <div>Funcionário</div></h2>
-            <form action="" method="post" enctype="multipart/form-data" autocomplete="on">
+            <h2 style="margin-top: 120px;">Novo <div>Funcionário</div>
+            </h2>
+            <form id="form-funcionario" autocomplete="off">
                 <label for="nome">Nome Completo:</label>
                 <input type="text" name="nome" id="nome" autocomplete="name" required>
 
@@ -35,18 +38,21 @@
                 <input type="date" name="data_nascimento" id="data_nascimento" autocomplete="off">
 
                 <label for="telefone">Número de Telefone:</label>
-                <input type="tel" name="telefone" id="telefone" autocomplete="tel" placeholder="923-456-234" maxlength="9" required>
+                <input type="tel" name="telefone" id="telefone" autocomplete="tel" placeholder="923-456-234"
+                    maxlength="9" required>
 
                 <label for="endereco">Endereço:</label>
-                <input type="text" name="endereco" id="endereco" autocomplete="street-address" placeholder="Gabela, Kwanza-Sul" required>
+                <input type="text" name="endereco" id="endereco" autocomplete="street-address"
+                    placeholder="Gabela, Kwanza-Sul" required>
 
                 <label for="email">E-mail:</label>
-                <input type="email" name="email" id="email" autocomplete="email" placeholder="exemplo@gmail.com" required>                
+                <input type="email" name="email" id="email" autocomplete="email" placeholder="exemplo@gmail.com"
+                    required>
 
-                <button type="submit">Cadastrar Funcionário</button>     
+                <button type="submit">Cadastrar Funcionário</button>
             </form>
         </article>
-        
+
         <article class="table-container">
             <div class="table-header">
                 <h2>Funcionários Cadastrados</h2>
@@ -54,7 +60,7 @@
                     <input type="search" id="pesquisar" placeholder="Pesquisar funcionários..." class="search-input">
                 </div>
             </div>
-            
+
             <table>
                 <thead>
                     <tr>
@@ -72,5 +78,7 @@
                 </tbody>
             </table>
         </article>
+     <script type="module" src="../assets/js/funcionarios.js"></script>
+    <script type="module" src="../assets/js/auth-guard.js"></script>
 </body>
 </html>
