@@ -1,6 +1,5 @@
 import { supabase } from './supabase.js';
 
-// vendas.js
 const formVenda = document.getElementById('formVenda');
 const tabelaVendas = document.getElementById('tabela-vendas');
 
@@ -17,7 +16,7 @@ if (formVenda) {
     // Buscar produto
     const { data: produtos, error: erroBusca } = await supabase
       .from('produtos')
-      .select('id, categoria_id')
+      .select('id')
       .ilike('nome', `%${produtoNome}%`);
 
     if (erroBusca || produtos.length === 0) return alert('Produto não encontrado.');
@@ -41,22 +40,21 @@ if (formVenda) {
 
 async function carregarVendas() {
   const { data, error } = await supabase
-    .from('vendas')
-    .select('*, produtos(nome, categoria_id), categorias(nome)')
+    .from('vendas_com_categorias')
+    .select('*')
     .order('data', { ascending: false });
 
   if (error) return alert(error.message);
 
   tabelaVendas.innerHTML = data.map(v => `
     <tr>
-      <!-- <td>${v.produtos?.nome || '-'}</td> -->
-      <!-- <td>${v.categorias?.nome || '-'}</td> -->
-      <!-- <td>${v.quantidade}</td> -->
-      <!-- <td>${v.data}</td> -->
-      <!-- <td>${v.valor_unitario.toFixed(2)}</td> -->
-      <!-- <td>${(v.valor_unitario * v.quantidade).toFixed(2)}</td> -->
-      <!-- <td>${v.forma_pagamento}</td> -->
-      <td>-</td>
+      <td>${v.nome_produto}</td>
+      <td>${v.nome_categoria || '-'}</td>
+      <td>${v.quantidade}</td>
+      <td>${v.data}</td>
+      <td>${v.valor_unitario.toFixed(2)}</td>
+      <td>${v.total.toFixed(2)}</td>
+      <td>${v.forma_pagamento}</td>
     </tr>
   `).join('');
 }
