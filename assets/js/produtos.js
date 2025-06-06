@@ -1,10 +1,10 @@
 import { supabase } from './supabase.js';
 
-// produtos.js
 const formProduto = document.getElementById('cadastro-produto');
 const tabelaProdutos = document.getElementById('tabela-produtos');
 const selectCategoria = document.getElementById('produto-categoria');
 const selectFornecedor = document.getElementById('produto-fornecedor');
+let produtoEmEdicao = null;
 
 async function carregarCategorias() {
   const { data, error } = await supabase.from('categorias').select('*');
@@ -46,11 +46,19 @@ if (formProduto) {
       quantidade: parseInt(document.getElementById('produto-quantidade').value, 10)
     };
 
-    const { error } = await supabase.from('produtos').insert([produto]);
+    let error;
+    if (produtoEmEdicao) {
+      ({ error } = await supabase.from('produtos').update(produto).eq('id', produtoEmEdicao));
+    } else {
+      ({ error } = await supabase.from('produtos').insert([produto]));
+    }
+
     if (error) return alert(error.message);
 
-    carregarProdutos();
+    await carregarProdutos();
     formProduto.reset();
+    produtoEmEdicao = null;
+    formProduto.querySelector('button[type="submit"]').innerText = "Salvar";
   });
 }
 
@@ -70,6 +78,7 @@ async function carregarProdutos() {
       <td>${p.data_entrega}</td>
       <td>${p.quantidade}</td>
       <td>
+        <button onclick="editarProduto('${p.id}')">Editar</button>
         <button onclick="excluirProduto('${p.id}')">Excluir</button>
       </td>
     </tr>
@@ -81,6 +90,23 @@ window.excluirProduto = async (id) => {
   const { error } = await supabase.from('produtos').delete().eq('id', id);
   if (error) return alert(error.message);
   carregarProdutos();
+};
+
+window.editarProduto = async (id) => {
+  const { data, error } = await supabase.from('produtos').select('*').eq('id', id).single();
+  if (error) return alert('Erro ao carregar produto para edição.');
+
+  produtoEmEdicao = id;
+
+  document.getElementById('produto-nome').value = data.nome;
+  document.getElementById('produto-categoria').value = data.categoria_id;
+  document.getElementById('produto-fornecedor').value = data.fornecedor_id;
+  document.getElementById('produto-preco').value = data.preco;
+  document.getElementById('produto-valor-Adiquirido').value = data.preco_adquirido;
+  document.getElementById('produto-data-entrega').value = data.data_entrega;
+  document.getElementById('produto-quantidade').value = data.quantidade;
+
+  formProduto.querySelector('button[type="submit"]').innerText = "Cadastrar";
 };
 
 carregarCategorias();

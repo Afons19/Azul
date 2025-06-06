@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Azul | Dashboard</title>
 </head>
 <body>
@@ -43,38 +45,38 @@
             <article id="container-1">
                 <div class="cart1">
                     <h2>Total de Vendas</h2>
-                    <div id="total_vendas">0</div>
+                    <div id="total-vendas">0</div>
                     <p>Últimos 30 dias</p>
                 </div>
                 <div class="cart1">
                     <h3 style="color: red;">Total de Despesas</h3>
-                    <div id="total_despesas">0</div>
+                    <div id="total-despesas">0</div>
                     <p>Últimos 30 dias</p>
                 </div>
                 <div class="cart1">
                     <h2 style="color: rgb(50, 224, 50);">Lucro Líquido</h2>
-                    <div id="lucro_liquido">0</div>
+                    <div id="total-lucro">0</div>
                     <p>Últimos 30 dias</p>
                 </div>
                 <div class="cart1">
                     <h2>Produtos</h2>
-                    <div id="total_produtos">0</div>
+                    <div id="total-produtos">0</div>
                     <p>Últimos 30 dias</p>
                 </div>
             </article>
             <article id="container-2">
                 <div class="graficos" id="gf1">
                     <h2>Vendas por Dia(últimos 7 dias)</h2>
-                    <canvas id="vendas_diarias_grafico"></canvas>
+                    <canvas id="grafico-vendas" width="400" height="200"></canvas>
                 </div>
                 <div class="graficos" id="gf2">
                     <h2>Vendas por Categoria</h2>
-                    <canvas id="vendas_categoria_grafico"></canvas>
+                    <canvas id="grafico-categoria"></canvas>
                 </div>
             </article>
             <article class="tabelas">
                 <h2>Atividades Recentes</h2>
-                <ul id="atividade_recentes">
+                <ul id="atividades-recentes">
                     <li>A carregar atividades...</li>
                 </ul>
             </article>
@@ -83,16 +85,16 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Autor</th>
                             <th>Nome do Produto</th>
-                            <th>Categoria</th>
-                            <th>Quantidade</th>
                             <th>Data</th>
+                            <th>Quantidade</th>
+                            <th>Categoria</th>
                             <th>Valor Unit.</th>
                             <th>Valor Total</th>
+                            <th>Método de Pagamento</th>
                         </tr>
                     </thead>
-                    <tbody id="tabela_vendas">
+                    <tbody id="tabela-historico-vendas">
                         <tr><td colspan="7">A carregar vendas...</td></tr>
                     </tbody>
                 </table>
@@ -108,10 +110,9 @@
                             <th>Endereço</th>
                             <th>Estabelecimento</th>
                             <th>E-mail</th>
-                            <th>ID</th>
                         </tr>
                     </thead>
-                    <tbody id="tabela_fornecedores">
+                    <tbody id="tabela-fornecedores-index">
                         <tr><td colspan="7">A carregar fornecedores...</td></tr>
                     </tbody>
                 </table>
@@ -127,19 +128,63 @@
                             <th>Telefone</th>
                             <th>Endereço</th>
                             <th>E-mail</th>
-                            <th>Ações</th>
                         </tr>
                     </thead>
-                    <tbody id="tabela_funcionarios">
+                    <tbody id="tabela-funcionarios-index">
                         <tr><td colspan="7">A carregar funcionários...</td></tr>
                     </tbody>
                 </table>
             </article>
+            <!-- <article class="tabelas">
+                <section id="secao-relatorios" >
+                    <h2>Relatório de Vendas</h2>
+                
+                    <label>Data Inicial: <input type="date" id="filtro-data-inicial" /></label>
+                    <label>Data Final: <input type="date" id="filtro-data-final" /></label>
+                    <label>Categoria:
+                        <select id="filtro-categoria">
+                            <option value="">Todas</option>
+                        </select>
+                    </label>
+                    <button onclick="filtrarRelatorioVendas()">Filtrar</button>
+                    <br><br>
+                
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Categoria</th>
+                                <th>Quantidade</th>
+                                <th>Data</th>
+                                <th>Valor Unitário</th>
+                                <th>Total</th>
+                                <th>Forma de Pagamento</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-relatorio-vendas">
+                             Dados via JS -->
+                        <!-- </tbody>
+                    </table>
+                
+                    <br>
+                
+                    <button onclick="exportarTabelaParaExcel('tabela-relatorio-vendas', 'Relatorio_Vendas')">Exportar Excel</button>
+                    <button onclick="exportarTabelaParaPDF('tabela-relatorio-vendas', 'Relatório de Vendas')">Exportar PDF</button>
+                </section>
+            </article> -->
+
         </main>
     </div>
     <script type="module" src="../assets/js/auth.js"></script>
     <script type="module" src="../assets/js/auth-guard.js"></script>
     <script type="module" src="../assets/js/logout.js"></script>
     <script type="module" src="../assets/js/sidebar.js"></script>
+    <script type="module" src="../assets/js/dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jspdf"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable"></script> -->
+    <!-- <script type="module" src="../assets/js/exportar.js"></script>
+    <script type="module" src="../assets/js/relatorios.js"></script> -->
+
 </body>
 </html>

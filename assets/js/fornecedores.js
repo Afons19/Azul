@@ -1,8 +1,8 @@
 import { supabase } from './supabase.js';
 
-// fornecedores.js
 const formFornecedor = document.getElementById('form-fornecedor');
 const tabelaFornecedores = document.getElementById('tabela-fornecedores');
+let fornecedorEmEdicao = null;
 
 if (formFornecedor) {
   formFornecedor.addEventListener('submit', async (e) => {
@@ -16,10 +16,19 @@ if (formFornecedor) {
       email: document.getElementById('fornecedor-email').value
     };
 
-    const { error } = await supabase.from('fornecedores').insert([fornecedor]);
+    let error;
+    if (fornecedorEmEdicao) {
+      ({ error } = await supabase.from('fornecedores').update(fornecedor).eq('id', fornecedorEmEdicao));
+    } else {
+      ({ error } = await supabase.from('fornecedores').insert([fornecedor]));
+    }
+
     if (error) return alert(error.message);
+
     carregarFornecedores();
     formFornecedor.reset();
+    fornecedorEmEdicao = null;
+    formFornecedor.querySelector('button[type="submit"]').innerText = "Salvar";
   });
 }
 
@@ -37,6 +46,7 @@ async function carregarFornecedores() {
         <td>${f.estabelecimento || '-'}</td>
         <td>${f.email}</td>
         <td>
+          <button onclick="editarFornecedor('${f.id}')">Editar</button>
           <button onclick="excluirFornecedor('${f.id}')">Excluir</button>
         </td>
       </tr>
@@ -49,6 +59,22 @@ window.excluirFornecedor = async (id) => {
   const { error } = await supabase.from('fornecedores').delete().eq('id', id);
   if (error) return alert(error.message);
   carregarFornecedores();
+};
+
+window.editarFornecedor = async (id) => {
+  const { data, error } = await supabase.from('fornecedores').select('*').eq('id', id).single();
+  if (error) return alert('Erro ao carregar fornecedor para edição.');
+
+  fornecedorEmEdicao = id;
+
+  document.getElementById('fornecedor-nome').value = data.nome;
+  document.getElementById('fornecedor-nif').value = data.nif;
+  document.getElementById('fornecedor-telefone').value = data.telefone;
+  document.getElementById('fornecedor-endereco').value = data.endereco;
+  document.getElementById('fornecedor-estabelecimento').value = data.estabelecimento;
+  document.getElementById('fornecedor-email').value = data.email;
+
+  formFornecedor.querySelector('button[type="submit"]').innerText = "Atualizar";
 };
 
 carregarFornecedores();
