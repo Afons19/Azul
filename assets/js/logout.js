@@ -1,4 +1,3 @@
-// logout.js
 import { supabase } from './supabase.js';
 
 const logoutBtn = document.getElementById('term-sess');

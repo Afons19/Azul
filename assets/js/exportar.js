@@ -1,5 +1,3 @@
-// exportar.js
-
 // Excel (XLSX)
 function exportarTabelaParaExcel(idTabela, nomeArquivo) {
   const tabela = document.getElementById(idTabela);

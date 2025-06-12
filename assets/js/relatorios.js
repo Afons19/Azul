@@ -1,4 +1,3 @@
-// relatorios.js
 import { supabase } from './supabase.js';
 
 async function carregarCategoriasNoFiltro() {

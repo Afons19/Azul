@@ -1,4 +1,3 @@
-// dashboard.js
 import { supabase } from './supabase.js';
 
 async function carregarIndicadores() {
@@ -132,6 +131,7 @@ async function carregarHistoricoVendas() {
   const { data, error } = await supabase
     .from('vendas_com_categorias')
     .select('*')
+    .limit(5)
     .order('data', { ascending: false });
 
   if (error) return alert('Erro ao carregar histórico de vendas');
@@ -177,7 +177,8 @@ async function carregarFornecedoresNoIndex() {
 async function carregarFuncionariosNoIndex() {
   const { data, error } = await supabase
     .from('funcionarios')
-    .select('*');
+    .select('*')
+    .limit(5)
 
   if (error) return alert('Erro ao carregar funcionários');
 
