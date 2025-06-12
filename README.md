@@ -85,7 +85,7 @@ Este projeto é um sistema de gestão para supermercados desenvolvido com **HTML
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/seu-repo.git
+   git clone https://github.com/Afons19/Azul.git
    ```
 2. Crie um arquivo `env.js` na raiz:
    ```js
