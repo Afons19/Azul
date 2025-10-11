@@ -101,11 +101,11 @@ Este projeto é um sistema de gestão para supermercados desenvolvido com **HTML
 
 ## 📦 Deploy com GitHub Pages
 
-- Ativado em `Settings > Pages > main / (root)`
+- Ativado em `Settings > Pages > main / (docs)`
 - URLs adicionadas no painel do Supabase (Auth → Redirect URLs)
 - Acesse o projeto online via:
   ```
-  https://seu-usuario.github.io/seu-repo/
+  https://github.com/Afons19/Azul
   ```
 
 ---
