@@ -1,7 +1,7 @@
 
 # 🛒 Sistema de Gestão de Supermercado
 
-Este projeto é um sistema de gestão para supermercados desenvolvido com **HTML, CSS e JavaScript puro**, integrado com o **Supabase** para autenticação e operações de CRUD em tempo real. Foi construído para rodar diretamente no navegador, com estrutura simples e organizada, sem necessidade de frameworks ou bundlers (como React ou Vite).
+Este projeto é um sistema de gestão para supermercados desenvolvido com **HTML, CSS e JavaScript puro**, integrado com o **Supabase** para autenticação e operações de CRUD em tempo real. Foi construído para rodar diretamente no navegador, com estrutura simples e organizada. 
 
 ---
 
