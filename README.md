@@ -111,7 +111,7 @@ Este projeto é um sistema de gestão para supermercados desenvolvido com **HTML
 ---
 
 ## ✍️ Autor
-**Afonso Van-Dunem**
+**Afonso Aurélio**
 
 Este projeto foi construído com foco em aprendizado e boas práticas de estrutura modular, segurança com Supabase e publicação aberta com GitHub Pages. 
 
