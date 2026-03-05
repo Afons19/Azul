@@ -1,7 +1,7 @@
 
-# 🛒 Sistema de Gestão de Supermercado com Supabase
+# 🛒 Sistema de Gestão de Supermercado
 
-Este projeto é um sistema de gestão para supermercados desenvolvido com **HTML, CSS e JavaScript puro**, integrado com o **Supabase** para autenticação e operações de CRUD em tempo real. Foi construído para rodar diretamente no navegador, com estrutura simples e organizada, sem necessidade de frameworks ou bundlers (como React ou Vite).
+Este projeto é um sistema de gestão para supermercados desenvolvido com **HTML, CSS e JavaScript puro**, integrado com o **Supabase** para autenticação e operações de CRUD em tempo real. Foi construído para rodar diretamente no navegador, com estrutura simples e organizada. 
 
 ---
 
@@ -105,13 +105,13 @@ Este projeto é um sistema de gestão para supermercados desenvolvido com **HTML
 - URLs adicionadas no painel do Supabase (Auth → Redirect URLs)
 - Acesse o projeto online via:
   ```
-  https://github.com/Afons19/Azul
+  https://afons19.github.io/Azul/
   ```
 
 ---
 
 ## ✍️ Autor
-**Afonso Van-Dunem**
+**Afonso Aurélio**
 
 Este projeto foi construído com foco em aprendizado e boas práticas de estrutura modular, segurança com Supabase e publicação aberta com GitHub Pages. 
 
